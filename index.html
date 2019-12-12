@@ -108,7 +108,7 @@
                       Here is some messy browser JavaScript that uses [browser-request](https://github.com/iriscouch/browser-request) to make an AJAX request to a server:
                           
                           var form = document.querySelector('form')
-                          form.onsubmit = function (submitEvent) {
+                          form.addEventListener('submit', function (submitEvent) {
                             var name = document.querySelector('input').value
                             request({
                               uri: "http://example.com/upload",
@@ -119,12 +119,12 @@
                               if (err) return statusMessage.value = err
                               statusMessage.value = body
                             })
-                          }
+                          });
                       
                       This code has two anonymous functions. Let's give em names!
 
                           var form = document.querySelector('form')
-                          form.onsubmit = function formSubmit (submitEvent) {
+                          form.addEventListener('submit', function formSubmit (submitEvent) {
                             var name = document.querySelector('input').value
                             request({
                               uri: "http://example.com/upload",
@@ -135,7 +135,7 @@
                               if (err) return statusMessage.value = err
                               statusMessage.value = body
                             })
-                          }
+                          });
                           
                       As you can see naming functions is super easy and has some immediate benefits: 
                       
@@ -145,7 +145,7 @@
                        
                       Now we can move the functions to the top level of our program:
                       
-                          document.querySelector('form').onsubmit = formSubmit
+                          document.querySelector('form').addEventListener('submit', formSubmit);
                           
                           function formSubmit (submitEvent) {
                             var name = document.querySelector('input').value
@@ -194,7 +194,7 @@
                       Now that we have `formuploader.js` (and it is loaded in the page as a script tag after being browserified) we just need to require it and use it! Here is how our application specific code looks now:
                 
                           var formUploader = require('formuploader')
-                          document.querySelector('form').onsubmit = formUploader.submit
+                          document.querySelector('form').addEventListener('submit', formUploader.submit);
                       
                       Now our application is only two lines of code and has the following benefits:
                       
